@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global dark mode styles */
+@layer base {
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  * {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Custom scrollbar for dark mode */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+  
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
+}
+
+/* Feature card glow effects */
+.feature-glow {
+  box-shadow: 0 2px 16px 0 rgba(80, 120, 255, 0.13), 0 1.5px 8px 0 rgba(80, 120, 255, 0.10);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.feature-glow-blue:hover, .feature-glow-blue:focus-within {
+  box-shadow: 0 0 0 0.5rem #3B82F6BB, 0 0 32px 8px #3B82F655, 0 2px 16px 0 rgba(59, 130, 246, 0.22);
+  border-color: #3B82F6;
+}
+.feature-glow-purple:hover, .feature-glow-purple:focus-within {
+  box-shadow: 0 0 0 0.5rem #A78BFA99, 0 0 32px 8px #A78BFA55, 0 2px 16px 0 rgba(124, 58, 237, 0.22);
+  border-color: #A78BFA;
+}
+.feature-glow-yellow:hover, .feature-glow-yellow:focus-within {
+  box-shadow: 0 0 0 0.5rem #FACC15BB, 0 0 32px 8px #FACC1555, 0 2px 16px 0 rgba(234, 179, 8, 0.22);
+  border-color: #FACC15;
+}
+.feature-glow-green:hover, .feature-glow-green:focus-within {
+  box-shadow: 0 0 0 0.5rem #10B981BB, 0 0 32px 8px #10B98155, 0 2px 16px 0 rgba(16, 185, 129, 0.22);
+  border-color: #10B981;
+}
