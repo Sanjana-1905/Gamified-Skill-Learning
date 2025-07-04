@@ -817,63 +817,21 @@ export const knowledgeTracingAlgorithms = {
   },
 
   DP: (matrix: number[][]): AlgorithmExecutionResult => {
-    const execution = measureExecutionTime(() => {
-      // Dynamic Programming for knowledge state transitions
-      const n = matrix.length;
-      const m = matrix[0]?.length || 0;
-      const dp = Array(n).fill(null).map(() => Array(m).fill(0));
-      const path = [];
-      
-      if (n === 0 || m === 0) return { dp: [], path: [], maxValue: 0 };
-      
-      // Initialize base case
-      dp[0][0] = matrix[0][0];
-      path.push({ row: 0, col: 0, value: dp[0][0], cumulative: dp[0][0] });
-      
-      // Fill first row
-      for (let j = 1; j < m; j++) {
-        dp[0][j] = dp[0][j-1] + matrix[0][j];
-        path.push({ row: 0, col: j, value: matrix[0][j], cumulative: dp[0][j] });
-      }
-      
-      // Fill first column
-      for (let i = 1; i < n; i++) {
-        dp[i][0] = dp[i-1][0] + matrix[i][0];
-        path.push({ row: i, col: 0, value: matrix[i][0], cumulative: dp[i][0] });
-      }
-      
-      // Fill DP table
-      for (let i = 1; i < n; i++) {
-        for (let j = 1; j < m; j++) {
-          dp[i][j] = matrix[i][j] + Math.max(dp[i-1][j], dp[i][j-1]);
-          path.push({ 
-            row: i, 
-            col: j, 
-            value: matrix[i][j], 
-            cumulative: dp[i][j],
-            fromTop: dp[i-1][j],
-            fromLeft: dp[i][j-1]
-          });
-        }
-      }
-      
-      return { dp, path, maxValue: dp[n-1][m-1] };
-    });
-
+    // Always return the input matrix as the DP table for visualization
     return {
       algorithmName: 'Dynamic Programming Knowledge Tracking',
-      executionTime: execution.time,
+      executionTime: 0,
       complexity: { time: 'O(n²)', space: 'O(n²)' },
-      description: 'Dynamic programming approach to find optimal knowledge progression paths.',
-      result: execution.result,
+      description: 'Possible correct answers DP matrix.',
+      result: { dp: matrix, path: [], maxValue: 0 },
       visualization: {
         type: 'matrix',
-        data: execution.result.dp.map((row: any, i: number) => 
-          row.map((value: any, j: number) => ({
+        data: matrix.map((row, i) =>
+          row.map((value, j) => ({
             row: i,
             col: j,
             value,
-            isOptimal: i === execution.result.dp.length - 1 && j === row.length - 1
+            isOptimal: false
           }))
         ).flat()
       }

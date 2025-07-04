@@ -59,10 +59,10 @@ const AlgorithmVisualizer: React.FC<AlgorithmVisualizerProps> = ({ result }) => 
         <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-full border border-blue-200 text-blue-800 text-sm font-medium">
           <Clock className="w-4 h-4 text-blue-400" />
           <span>Execution: {result.executionTime.toFixed(2)} ms</span>
-        </div>
+      </div>
         <div className="flex items-center gap-2 bg-green-50 px-3 py-1 rounded-full border border-green-200 text-green-800 text-sm font-medium">
           <span>Time: {result.complexity.time}</span>
-        </div>
+          </div>
         <div className="flex items-center gap-2 bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200 text-yellow-800 text-sm font-medium">
           <TrendingUp className="w-4 h-4 text-yellow-400" />
           <span>Space: {result.complexity.space}</span>

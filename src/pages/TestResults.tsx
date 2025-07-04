@@ -694,10 +694,19 @@ const TestResults = () => {
                               <span className="font-semibold">DP Table (Matrix):</span>
                               <div style={{ display: 'inline-block', marginTop: 4, border: '1px solid #ccc', borderRadius: 4, overflow: 'hidden', background: 'var(--tw-prose-bg, #f8fafc)' }}>
                                 <table style={{ borderCollapse: 'collapse' }}>
+                                  <thead>
+                                    <tr>
+                                      <th style={{ border: '1px solid #ddd', padding: '4px 8px', textAlign: 'center', minWidth: 24 }}></th>
+                                      {result.result.dp[0].map((_, j) => (
+                                        <th key={j} style={{ border: '1px solid #ddd', padding: '4px 8px', textAlign: 'center', minWidth: 24 }}>{`Q${j}`}</th>
+                                      ))}
+                                    </tr>
+                                  </thead>
                                   <tbody>
-                                    {result.result.dp.map((row: any[], i: number) => (
+                                    {(result.result.dp as any[]).map((row: any, i: number) => (
                                       <tr key={i}>
-                                        {row.map((cell, j) => (
+                                        <td style={{ border: '1px solid #ddd', padding: '4px 8px', textAlign: 'center', minWidth: 24 }}>{`S${i}`}</td>
+                                        {row.map((cell: any, j: number) => (
                                           <td key={j} style={{ border: '1px solid #ddd', padding: '4px 8px', textAlign: 'center', minWidth: 24 }}>{cell}</td>
                                         ))}
                                       </tr>

@@ -218,7 +218,24 @@ const TestPage = () => {
 
     // --- Knowledge Tracing ---
     if (algorithms.knowledgeTracing === 'DP') {
-      const dpMatrix = [selectedQuestions.map((q, i) => selectedAnswers[i] === q.correctAnswer ? 1 : 0)];
+      // Build a 2D DP matrix: rows = possible correct answers (states), columns = questions
+      const n = selectedQuestions.length;
+      const dpMatrix = Array.from({ length: n + 1 }, () => Array(n + 1).fill(0));
+      dpMatrix[0][0] = 1; // 0 correct at 0 questions is possible
+      for (let q = 1; q <= n; q++) {
+        for (let s = 0; s <= q; s++) {
+          // If previous state was s and this question is incorrect
+          if (dpMatrix[s][q - 1]) dpMatrix[s][q] = 1;
+          // If previous state was s-1 and this question is correct
+          if (
+            s > 0 &&
+            dpMatrix[s - 1][q - 1] &&
+            selectedAnswers[q - 1] === selectedQuestions[q - 1].correctAnswer
+          ) {
+            dpMatrix[s][q] = 1;
+          }
+        }
+      }
       results.push(knowledgeTracingAlgorithms.DP(dpMatrix));
     } else if (algorithms.knowledgeTracing === 'DKT') {
       const dktResult = knowledgeTracingAlgorithms.DKT(dktHistory.inputs, dktHistory.targets);
@@ -304,7 +321,24 @@ const TestPage = () => {
 
     // --- Knowledge Tracing ---
     if (algorithms.knowledgeTracing === 'DP') {
-      const dpMatrix = [selectedQs.map((q, i) => answersArr[i] === q.correctAnswer ? 1 : 0)];
+      // Build a 2D DP matrix: rows = possible correct answers (states), columns = questions
+      const n = selectedQs.length;
+      const dpMatrix = Array.from({ length: n + 1 }, () => Array(n + 1).fill(0));
+      dpMatrix[0][0] = 1; // 0 correct at 0 questions is possible
+      for (let q = 1; q <= n; q++) {
+        for (let s = 0; s <= q; s++) {
+          // If previous state was s and this question is incorrect
+          if (dpMatrix[s][q - 1]) dpMatrix[s][q] = 1;
+          // If previous state was s-1 and this question is correct
+          if (
+            s > 0 &&
+            dpMatrix[s - 1][q - 1] &&
+            answersArr[q - 1] === selectedQs[q - 1].correctAnswer
+          ) {
+            dpMatrix[s][q] = 1;
+          }
+        }
+      }
       const dpResult = knowledgeTracingAlgorithms.DP(dpMatrix);
       let dpPath = dpResult.result.path || [];
       let dpPathStr = dpPath.map((step: any) => `(${step.row},${step.col}:${step.value})`).join(' -> ');
@@ -506,7 +540,24 @@ const TestPage = () => {
       results.push(rewardSystemAlgorithms.Greedy(activities));
     }
     if (algorithms.knowledgeTracing === 'DP') {
-      const dpMatrix = [selectedQuestions.map((q, i) => selectedAnswers[i] === q.correctAnswer ? 1 : 0)];
+      // Build a 2D DP matrix: rows = possible correct answers (states), columns = questions
+      const n = selectedQuestions.length;
+      const dpMatrix = Array.from({ length: n + 1 }, () => Array(n + 1).fill(0));
+      dpMatrix[0][0] = 1; // 0 correct at 0 questions is possible
+      for (let q = 1; q <= n; q++) {
+        for (let s = 0; s <= q; s++) {
+          // If previous state was s and this question is incorrect
+          if (dpMatrix[s][q - 1]) dpMatrix[s][q] = 1;
+          // If previous state was s-1 and this question is correct
+          if (
+            s > 0 &&
+            dpMatrix[s - 1][q - 1] &&
+            selectedAnswers[q - 1] === selectedQuestions[q - 1].correctAnswer
+          ) {
+            dpMatrix[s][q] = 1;
+          }
+        }
+      }
       results.push(knowledgeTracingAlgorithms.DP(dpMatrix));
     } else if (algorithms.knowledgeTracing === 'DKT') {
       const dktResult = knowledgeTracingAlgorithms.DKT(dktHistory.inputs, dktHistory.targets);
